@@ -42,7 +42,7 @@
       chdir: /app
   - name: rename jar file
     ansible.builtin.command: mv target/shipping-1.0.jar shipping.jar
-     src: shipping2.service
+     src: shipping.service
      dest: /etc/systemd/system/shipping.service
 
   - name: daemon reload
@@ -62,4 +62,3 @@
      name: shipping
      state: restarted
      enabled: yes
-       
