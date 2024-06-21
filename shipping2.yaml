@@ -33,17 +33,17 @@
   - name: download shipping and extract
     ansible.builtin.unarchive:
      src: https://roboshop-builds.s3.amazonaws.com/shipping.zip                
-     dest: /tmp
+     dest: /app
      remote_src: yes
 
   - name: maven package
     ansible.builtin.command: mvn clean package
     args:
-     chdir: /tmp
+      chdir: /app
   - name: rename jar file
     ansible.builtin.command: mv target/shipping-1.0.jar shipping.jar
     args:
-     chdir: /tmp
+      chdir: /app
 
   - name: copy shipping service
     ansible.builtin.copy: 
