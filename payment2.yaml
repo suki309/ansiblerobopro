@@ -6,10 +6,10 @@
     ansible.builtin.yum:
      name: "{{item}}"
      state: installed
-     loop:
-     - python36
-     - gcc
-     - python3-devel
+    loop:
+    - python36
+    - gcc
+    - python3-devel
 
   - name: check roboshop user exist or not
     ansible.builtin.command: id roboshop
@@ -25,6 +25,16 @@
     ansible.builtin.stat:
      path: /app
     register: directory
+
+  - name: print the directory stats
+    ansible.builtin.debug: 
+     msg: "output: {{directory}}"
+
+  - when: directory.stat.exists == False
+    name: create /app directory
+    ansible.builtin.file:
+     path: /app
+     state: directory  
 
   - name: download payment and extract
     ansible.builtin.unarchive:
@@ -51,6 +61,6 @@
      name: payment
      state: restarted
      enabled: true
-                       
+
 
      
