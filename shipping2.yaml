@@ -33,17 +33,17 @@
   - name: download shipping and extract
     ansible.builtin.unarchive:
      src: https://roboshop-builds.s3.amazonaws.com/shipping.zip                
-     dest: /app
+     dest: /tmp
      remote_src: yes
 
   - name: maven package
     ansible.builtin.command: mvn clean package
     args:
-      chdir: /app
+      chdir: /tmp
   - name: rename jar file
     ansible.builtin.command: mv target/shipping-1.0.jar shipping.jar
     args:
-      chdir: /app
+      chdir: /tmp
 
   - name: copy shipping service
     ansible.builtin.copy: 
@@ -60,7 +60,7 @@
      state: installed
 
   - name: load mysql schema
-    ansible.builtin.shell: mysql -h 172.31.46.144 -uroot -pRoboShop@1 < /app/schema/shipping.sql   
+    ansible.builtin.shell: mysql -h 172.31.46.144 -uroot -pRoboShop@1 < /tmp/schema/shipping.sql   
     
   - name: restart shipping
     ansible.builtin.service:
