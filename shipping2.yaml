@@ -42,8 +42,13 @@
       chdir: /app
   - name: rename jar file
     ansible.builtin.command: mv target/shipping-1.0.jar shipping.jar
-     src: shipping.service
-     dest: /etc/systemd/system/shipping.service
+     args:
+      chdir: /app
+
+  - name: copy shipping service
+    ansible.builtin.copy: 
+     src: shipping2.service
+     dest: /etc/systemd/system/shipping.service    
 
   - name: daemon reload
     ansible.builtin.systemd:
