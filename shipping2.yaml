@@ -33,7 +33,7 @@
   - name: download shipping and extract
     ansible.builtin.unarchive:
      src: https://roboshop-builds.s3.amazonaws.com/shipping.zip                
-     dest: /app
+     dest: /tmp
      remote_src: yes
 
   - name: maven package
